@@ -1,27 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
 
-    <h1>Simple Python Calculator!</h1>
-    <p>Input something like <code>1 + 1</code>.</p>
-    <input id="btn" type="button" value="Send to Python!"></input>
-    </br>
-    <input id="btnTwo" type="button" value="Send to Python!"></input>
-    </br>
+<head>
+  <meta charset="UTF-8">
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="stylesheet" href="./styles/bootstrap.css">
+</head>
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="#" class="closebtn" id="close" >&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+  </div>
   
+  <!-- Use any element to open the sidenav -->
+  <button class="btn btn-success" id="open">open</button>
+  
+  <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+  <div class="" id="mainw">
+    <h1>strm deck</h1>
+    <div class="container ">
+      <div class="row p-1 row-cols-12">
+        <div class="col m-3 trigger">Column</div>
+        <div class="col m-3 trigger">Column</div>
+        <div class="col m-3 trigger">Col m-3 triggerumn</div>
+        <div class="col m-3 trigger">Col m-3 triggerumn</div>
+        <div class="col m-3 trigger">Col m-3 triggerumn</div>
+      </div>
+    </div>
+    <div class="container ">
+      <div class="row p-1 row-cols-12">
+        <input type="button" class="col m-3 btn  trigger" value="sdfasdfas"></input>
+        <div class="col m-3 trigger">Column</div>
+        <div class="col m-3 trigger">Col m-3 triggerumn</div>
+        <div class="col m-3 trigger">Col m-3 triggerumn</div>
+        <div class="col m-3 trigger">Col m-3 triggerumn</div>
+      </div>
+    </div>
+  </div>
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-  </body>
+  <input id="btn" type="button" class="btn btn-success" value="Send to Python!"></input>
+  </br>
+  <input id="btnTwo" type="button" class="btn btn-success" value="Send to Python!"></input>
+  </br>
+
+
+  <!-- You can also require other files to run in this process -->
+  <script src="./renderer.js"></script>
+  <script src="./script/navScript.js"></script>
+
+
+</body>
+
 </html>

@@ -16,7 +16,6 @@ const fs = require("fs")
 var pathPython = "";
 try {
     if (!fs.existsSync(path.join(process.resourcesPath, 'app', 'hello.py'))) {
-      console.log("File exists.")
       pathPython = "hello.py"
     } else {
         pathPython = path.join(process.resourcesPath, 'app', 'hello.py');

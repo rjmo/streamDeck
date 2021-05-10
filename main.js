@@ -3,15 +3,11 @@ const { app, BrowserWindow, globalShortcut } = require('electron')
 const path = require('path')
 var { PythonShell } = require('python-shell');
 
-
-
-
-
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 700,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       enableRemoteModule: false,
@@ -32,22 +28,11 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow()
-
-  
-
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
-  PythonShell.run(path.join(app.getAppPath(), 'hello.py'), {args:'Key.cmd'}, function (err, results){
-
-    if (err) throw err;
-    console.log('results: %j', results);
-
-})
-
-
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
