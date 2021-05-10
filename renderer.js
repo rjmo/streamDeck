@@ -15,10 +15,10 @@ const fs = require("fs")
 //para o modo desenvolvedor
 var pathPython = "";
 try {
-    if (!fs.existsSync(path.join(process.resourcesPath, 'app', 'hello.py'))) {
-      pathPython = "hello.py"
+    if (!fs.existsSync(path.join(process.resourcesPath, 'app', 'shorcuts.py'))) {
+      pathPython = "shorcuts.py"
     } else {
-        pathPython = path.join(process.resourcesPath, 'app', 'hello.py');
+        pathPython = path.join(process.resourcesPath, 'app', 'shorcuts.py');
     }
   } catch(err) {
     console.error(err)
