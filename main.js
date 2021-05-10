@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, globalShortcut } = require('electron')
+const { app, BrowserWindow, globalShortcut, ipcMain, dialog } = require('electron')
 const path = require('path')
-var { PythonShell } = require('python-shell');
+const fs = require('fs');
 
 function createWindow() {
   // Create the browser window.
@@ -44,3 +44,40 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.on('open-file-dialog-sheet', function (event) {
+  const window = BrowserWindow.fromWebContents(event.sender)
+  const files = dialog.showOpenDialog(window, {
+    properties: ['openFile', 'openDirectory'],
+    filters: [
+      { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
+      { name: 'Custom File Type', extensions: ['as'] },
+      { name: 'All Files', extensions: ['*'] }
+    ]
+  })
+    .then(result => {
+      // get first element in array which is path to file selected
+      const filePath = result.filePaths[0];
+
+      // get file name
+      const fileName = path.basename(filePath);
+
+      // path to app data + fileName = "C:\Users\John\AppData\Roaming\app_name\picture.png"
+      imgFolderPath = path.join(app.getPath('userData'), fileName);
+
+      fs.copyFile(filePath, imgFolderPath, (err) => {
+        if (err) throw err;
+        console.log(fileName + ' uploaded.');
+      });
+
+
+      event.sender.send('selected-directory', result.filePaths);
+
+      console.log(imgFolderPath)
+
+    })
+    .catch(err => {
+      console.log(err)
+    })
+
+});
