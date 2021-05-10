@@ -2,11 +2,11 @@ from pynput.keyboard import Key, Controller
 import time
 import sys
 
-print('ok')
+print('ok'+sys.argv[1])
 
 keyboard = Controller()
 
-# # Press and release spaceaaAAHello World
+# Press and release spaceaaAAHello World
 # with keyboard.pressed(eval(sys.argv[1])):
 #     keyboard.press('x')
 #     time.sleep(0.5)

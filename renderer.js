@@ -6,9 +6,25 @@
 // selectively enable features needed in the rendering
 // process.
 const net = require('net')
-const { app, BrowserWindow, globalShortcut } = require('electron')
 const { PythonShell } = require('python-shell')
+const path = require('path')
+const { app, BrowserWindow, globalShortcut } = require('electron')
+const fs = require("fs")
 
+
+//para o modo desenvolvedor
+var pathPython = "";
+try {
+    if (!fs.existsSync(path.join(process.resourcesPath, 'app', 'hello.py'))) {
+      console.log("File exists.")
+      pathPython = "hello.py"
+    } else {
+        pathPython = path.join(process.resourcesPath, 'app', 'hello.py');
+    }
+  } catch(err) {
+    console.error(err)
+  }
+//
 
 
 const serverNet = net.createServer();
@@ -23,6 +39,11 @@ serverNet.on('connection', (clientNet) => {
   
   clientNet.on('data', data => {
       console.log(data)
+      PythonShell.run(pathPython, {args:data}, function (err, results){
+        if (err) throw err;
+        console.log('results: %j', results);
+
+    })
   });
 
   clientNet.on('end', function () {
@@ -32,6 +53,11 @@ serverNet.on('connection', (clientNet) => {
 });
 
 function sendToPython() {
+    PythonShell.run(pathPython, {args:'Key.cmd'}, function (err, results){
+        if (err) throw err;
+        console.log('results: %j', results);
+
+    })
     
 }
   
@@ -40,6 +66,11 @@ function sendToPython() {
     console.log('send to python')
 
   });
+  btnTwo.addEventListener('click', () => {
+    sendToPython();
+    console.log('send two')
+
+  });
   
-  btn.dispatchEvent(new Event('click'));
+//   btn.dispatchEvent(new Event('click'));
   

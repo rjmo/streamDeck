@@ -32,7 +32,6 @@ function createWindow() {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow()
-  console.log(app.getAppPath());
 
   
 
@@ -41,10 +40,11 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
-  PythonShell.run(path.join(app.getAppPath())+'/hello.py', {args:'Key.cmd'}, function (err, results){
+  PythonShell.run(path.join(app.getAppPath(), 'hello.py'), {args:'Key.cmd'}, function (err, results){
 
     if (err) throw err;
     console.log('results: %j', results);
+
 })
 
 
