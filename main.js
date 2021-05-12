@@ -1,7 +1,11 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, globalShortcut, ipcMain, dialog } = require('electron')
+const { app, BrowserWindow, globalShortcut, ipcMain, dialog, ipcRenderer } = require('electron')
 const path = require('path')
 const fs = require('fs');
+
+
+
+
 
 function createWindow() {
   // Create the browser window.
@@ -14,20 +18,49 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false
     }
-  })
+  });
+
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
+
 }
+
+function modalImage() {
+  const child = new BrowserWindow({
+    show: false,
+    alwaysOnTop: true,
+    maximizable: false,
+    minimizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+  }
+  });
+  child.loadFile('./windows/imageEditor/image-editor.html')
+  child.once('ready-to-show', () => {
+    child.webContents.send('ping', imgFolderPath)
+
+    child.show()
+
+    
+  })
+}
+
+ipcMain.on('imageEditor', function () {
+  modalImage();
+})
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow()
+
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
@@ -44,6 +77,8 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+
 
 ipcMain.on('open-file-dialog-sheet', function (event) {
   const window = BrowserWindow.fromWebContents(event.sender)
@@ -70,14 +105,15 @@ ipcMain.on('open-file-dialog-sheet', function (event) {
         console.log(fileName + ' uploaded.');
       });
 
+      event.sender.send('selected-directory', imgFolderPath);
 
-      event.sender.send('selected-directory', result.filePaths);
-
+      // pro model
+      modalImage();
       console.log(imgFolderPath)
-
+      console.log(app.getAppPath())
     })
     .catch(err => {
       console.log(err)
     })
-
 });
+
