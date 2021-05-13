@@ -22,6 +22,7 @@
   "dependencies": {
     "cropperjs": "^1.5.11",
     "electron-squirrel-startup": "^1.0.0",
+    "file-saver": "^2.0.5",
     "python-shell": "^3.0.0"
   },
   "config": {

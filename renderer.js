@@ -16,21 +16,22 @@ const { ipcRenderer } = require('electron')
 
 const selectDirBtn = document.getElementById('select-directory')
 
-btne.addEventListener('click', (event) => {
-  ipcRenderer.send('imageEditor')
+// btne.addEventListener('click', (event) => {
+//   ipcRenderer.send('imageEditor')
   
-})
+// })
 
 
 selectDirBtn.addEventListener('click', (event) => {
   ipcRenderer.send('open-file-dialog-sheet')
   
 })
-ipcRenderer.on('selected-directory', (event, path) => {
-  // document.getElementById('selected-file').innerHTML = `You selected: ${path}`
-  // document.getElementById('btnImage').src = path
-  console.log(path)
-})
+
+// ipcRenderer.on('selected-directory', (event, path) => {
+//   // document.getElementById('selected-file').innerHTML = `You selected: ${path}`
+//   // document.getElementById('btnImage').src = path
+//   console.log(path[0]+ ' arquivo salvo')
+// })
 
 
 

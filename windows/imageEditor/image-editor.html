@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../../node_modules/cropperjs/dist/cropper.css" rel="stylesheet">
     <script src="../../node_modules/cropperjs/dist/cropper.js"></script>
-    <script src="../../script/imageEditor.js"></script>
     <style>
         img {
             display: block;
@@ -15,15 +14,40 @@
             /* This rule is very important, please don't ignore this */
             max-width: 100%;
         }
+
+        .img-preview {
+            background-color: #f7f7f7;
+            text-align: center;
+            width: 100%;
+        }
+
+        .img-preview>img {
+            max-width: 100%;
+        }
+
+        .img-preview {
+            float: left;
+            margin-bottom: .5rem;
+            margin-right: .5rem;
+            overflow: hidden;
+        }
+
+        .preview-lg {
+            height: 9rem;
+            width: 16rem;
+        }
     </style>
 </head>
+
 <body>
     <p id="divr">fff</p>
     <div>
-        <img id="image" src="picture.jpg">
-        <div class=""><img id="btnImage" src="" alt=""><span class="badge rounded-pill bg-primary">+</span></div>
-
+        <img id="btnImage" src="" alt="">
+        <div class="img-preview preview-lg"></div>
+        <button type="button" id="cropImage">Crop</button>
     </div>
+    <script src="../../script/imageEditor.js"></script>
+
 </body>
 
 </html>

@@ -29,12 +29,10 @@ function createWindow() {
 
 }
 
-function modalImage() {
+function modalImage(data) {
   const child = new BrowserWindow({
     show: false,
     alwaysOnTop: true,
-    maximizable: false,
-    minimizable: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -42,17 +40,14 @@ function modalImage() {
   });
   child.loadFile('./windows/imageEditor/image-editor.html')
   child.once('ready-to-show', () => {
-    child.webContents.send('ping', imgFolderPath)
-
+    child.webContents.send('ping', data)
     child.show()
-
-    
   })
 }
 
-ipcMain.on('imageEditor', function () {
-  modalImage();
-})
+// ipcMain.on('imageEditor', function () {
+//   modalImage();
+// })
 
 
 // This method will be called when Electron has finished
@@ -82,7 +77,7 @@ app.on('window-all-closed', function () {
 
 ipcMain.on('open-file-dialog-sheet', function (event) {
   const window = BrowserWindow.fromWebContents(event.sender)
-  const files = dialog.showOpenDialog(window, {
+  dialog.showOpenDialog(window, {
     properties: ['openFile', 'openDirectory'],
     filters: [
       { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
@@ -91,6 +86,7 @@ ipcMain.on('open-file-dialog-sheet', function (event) {
     ]
   })
     .then(result => {
+       const data = []
       // get first element in array which is path to file selected
       const filePath = result.filePaths[0];
 
@@ -100,20 +96,20 @@ ipcMain.on('open-file-dialog-sheet', function (event) {
       // path to app data + fileName = "C:\Users\John\AppData\Roaming\app_name\picture.png"
       imgFolderPath = path.join(app.getPath('userData'), fileName);
 
-      fs.copyFile(filePath, imgFolderPath, (err) => {
-        if (err) throw err;
-        console.log(fileName + ' uploaded.');
-      });
+      // fs.copyFile(filePath, imgFolderPath, (err) => {
+      //   if (err) throw err;
+      //   console.log(fileName + ' uploaded.');
+      // });
+       data.push(filePath, imgFolderPath);
+      // event.sender.send('selected-directory', filePath);
 
-      event.sender.send('selected-directory', imgFolderPath);
-
-      // pro model
-      modalImage();
-      console.log(imgFolderPath)
-      console.log(app.getAppPath())
+      // edit image modal
+      modalImage(data);
+      console.log(filePath)
     })
     .catch(err => {
       console.log(err)
     })
+    window.webContents.openDevTools()
 });
 
