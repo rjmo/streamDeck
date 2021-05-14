@@ -1,3 +1,8 @@
+#run
+#python -m venv env_deck
+#Scripts\activate.bat
+#pip install -r req.txt
+
 from pynput.keyboard import Key, Controller
 import time
 import sys
