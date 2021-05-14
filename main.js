@@ -75,10 +75,10 @@ app.on('window-all-closed', function () {
 
 
 
-ipcMain.on('open-file-dialog-sheet', function (event) {
+ipcMain.on('open-file-dialog', function (event) {
   const window = BrowserWindow.fromWebContents(event.sender)
   dialog.showOpenDialog(window, {
-    properties: ['openFile', 'openDirectory'],
+    properties: ['openFile'],
     filters: [
       { name: 'Images', extensions: ['jpg', 'png', 'gif'] },
       { name: 'Custom File Type', extensions: ['as'] },

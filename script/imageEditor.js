@@ -35,6 +35,7 @@ ipcRenderer.on('ping', (event, path) => {
                 fs.writeFile(path[1], view1, function (err) {
                     if (err) throw err;
                     console.log('It\'s saved!');
+                    console.log(path[1]);
                 });
             }
         })
