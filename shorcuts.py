@@ -2,7 +2,8 @@ from pynput.keyboard import Key, Controller
 import time
 import sys
 
-print('ok'+sys.argv[1])
+
+print('ok')
 
 keyboard = Controller()
 
@@ -12,7 +13,7 @@ keyboard = Controller()
 #     time.sleep(0.5)
 #     keyboard.release('x')
 
-with keyboard.pressed(Key.cmd):
+with keyboard.pressed(Key.alt):
     keyboard.press(Key.tab)
     # time.sleep(0.5)
     keyboard.release(Key.tab)

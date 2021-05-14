@@ -23,7 +23,7 @@ const selectDirBtn = document.getElementById('select-directory')
 
 
 selectDirBtn.addEventListener('click', (event) => {
-  ipcRenderer.send('open-file-dialog-sheet')
+  ipcRenderer.send('open-file-dialog')
   
 })
 
